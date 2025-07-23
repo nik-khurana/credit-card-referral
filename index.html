@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Points Passport | Unlock Your Next Reward</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- Enhanced Design & Animations --- */
+
+        /* --- CSS Variables for Theming --- */
+        :root {
+            --bg-color: #121212;
+            --primary-glow: rgba(86, 122, 255, 0.55);
+            --secondary-glow: rgba(200, 80, 255, 0.5);
+            --card-bg: rgba(255, 255, 255, 0.07);
+            --card-border: rgba(255, 255, 255, 0.15);
+            --card-hover-border: rgba(255, 255, 255, 0.4);
+            --text-primary: #f0f0f0;
+            --text-secondary: #a0a0a0;
+            --accent-color: #567aff;
+            --border-radius: 16px;
+            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes backgroundPan {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* --- General Body & Layout Styles --- */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            line-height: 1.7;
+            overflow-x: hidden; /* Prevent horizontal scroll */
+        }
+
+        .background-glow {
+            position: fixed;
+            top: -20%;
+            left: -20%;
+            width: 140%;
+            height: 140%;
+            background: radial-gradient(circle, var(--primary-glow) 0%, var(--secondary-glow) 50%, transparent 70%);
+            animation: backgroundPan 25s ease-in-out infinite;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* --- Header & Hero Section --- */
+        .hero {
+            padding: 120px 20px 60px;
+            text-align: center;
+            animation: fadeIn 1s ease-out forwards;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: -webkit-linear-gradient(45deg, #ffffff, #c0c0c0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero h3 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: var(--text-secondary);
+            margin-bottom: 1.5rem;
+        }
+
+        .hero .intro {
+            max-width: 700px;
+            margin: 0 auto;
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* --- Card Listing Styles (Glassmorphism) --- */
+        .card-listing {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border-radius: var(--border-radius);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--shadow);
+            margin: 40px 0;
+            padding: 30px;
+            display: flex;
+            gap: 30px;
+            transition: transform 0.4s ease, border 0.4s ease;
+            opacity: 0; /* Initially hidden for animation */
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+        
+        /* Staggered animation for cards */
+        .card-listing:nth-child(1) { animation-delay: 0.2s; }
+        .card-listing:nth-child(2) { animation-delay: 0.3s; }
+        .card-listing:nth-child(3) { animation-delay: 0.4s; }
+        .card-listing:nth-child(4) { animation-delay: 0.5s; }
+        .card-listing:nth-child(5) { animation-delay: 0.6s; }
+        .card-listing:nth-child(6) { animation-delay: 0.7s; }
+
+
+        .card-listing:hover {
+            transform: translateY(-8px) scale(1.02);
+            border: 1px solid var(--card-hover-border);
+        }
+
+        .card-image {
+            flex-shrink: 0;
+            text-align: center;
+            position: relative;
+        }
+
+        .card-image img {
+            max-width: 250px;
+            border-radius: 10px;
+            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+            transition: transform 0.4s ease;
+        }
+
+        .card-listing:hover .card-image img {
+            transform: scale(1.05);
+        }
+
+        .card-details h2 {
+            font-size: 1.75rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .card-details .tagline {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .card-details ul {
+            list-style-type: none;
+            padding-left: 0;
+            margin: 1.5rem 0;
+        }
+
+        .card-details ul li {
+            margin-bottom: 0.75rem;
+            padding-left: 5px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+        
+        .card-details ul li strong {
+            color: var(--text-primary);
+        }
+
+        .card-details .fee {
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-top: 1rem;
+        }
+
+        /* --- Call to Action Button --- */
+        .cta-button {
+            display: inline-block;
+            background: var(--accent-color);
+            color: white;
+            padding: 14px 28px;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 10px;
+            margin-top: 1rem;
+            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 15px rgba(86, 122, 255, 0.3);
+        }
+
+        .cta-button:hover {
+            background-color: #7395ff;
+            transform: translateY(-3px);
+            box-shadow: 0 7px 20px rgba(86, 122, 255, 0.4);
+        }
+
+        /* --- Bonus SoFi Section --- */
+        #bonus-offer {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            border-radius: var(--border-radius);
+            padding: 40px;
+            margin: 60px 0;
+            text-align: center;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 0.8s forwards;
+        }
+
+        #bonus-offer h2 {
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+        }
+        
+        #bonus-offer p {
+            color: var(--text-secondary);
+        }
+
+        #bonus-offer ul {
+            list-style-type: none;
+            margin: 1.5rem 0;
+            padding: 0;
+            display: inline-block;
+            text-align: left;
+            color: var(--text-secondary);
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 30px;
+            opacity: 0;
+            animation: fadeIn 0.8s ease-out 1s forwards;
+        }
+
+        footer .disclaimer {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            max-width: 800px;
+            margin: 0 auto 1rem;
+        }
+
+        footer .copyright {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* --- Responsive Design for Mobile --- */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            .hero h3 {
+                font-size: 1.2rem;
+            }
+
+            .card-listing {
+                flex-direction: column;
+                padding: 25px;
+            }
+
+            .card-image img {
+                max-width: 100%;
+                width: 300px;
+            }
+            
+            .card-details {
+                text-align: center;
+            }
+
+            .card-details ul {
+                display: inline-block;
+                text-align: left;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="background-glow"></div>
+    <header class="hero">
+        <div class="container">
+            <h1>Unlock Maximum Rewards.</h1>
+            <h3>Your Curated Guide to the Best Credit Cards &amp; Sign-Up Bonuses.</h3>
+            <p class="intro">Tired of confusing credit card options? I've done the research and personally use these cards to earn thousands in cash back and travel points every year. Below are my top picks for every type of spender. By using my referral links, you get the best available sign-up bonus, and I get a small thank you from the bank. It's a win-win!</p>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Amex Gold -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/D4AF37/000000?text=Amex+Gold" alt="American Express Gold Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>American Express® Gold Card</h2>
+                <p class="tagline"><strong>🍔 Perfect For:</strong> The ultimate foodie and frequent diner.</p>
+                <ul>
+                    <li>🏆 <strong>Unbeatable Rewards:</strong> 4X points at Restaurants worldwide & at U.S. Supermarkets.</li>
+                    <li>🚕 <strong>$120 Uber Cash:</strong> Get up to $10 in Uber Cash for rides or Eats each month.</li>
+                    <li>🍽️ <strong>$120 Dining Credit:</strong> Get up to $10 in statement credits each month for Grubhub, Shake Shack & more.</li>
+                    <li>✈️ <strong>Flexible Points:</strong> Transfer points to a huge list of premium airline and hotel partners.</li>
+                </ul>
+                <p class="fee">Annual Fee: $250</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Amex Gold</a>
+            </div>
+        </article>
+        
+        <!-- Amex Blue Cash Everyday -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/6caddf/FFFFFF?text=Blue+Cash+Everyday" alt="American Express Blue Cash Everyday Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>Blue Cash Everyday® Card from American Express</h2>
+                <p class="tagline"><strong>🛒 Perfect For:</strong> The modern household's daily expenses.</p>
+                <ul>
+                    <li>💰 <strong>Strong Cash Back:</strong> 3% back at U.S. Supermarkets, U.S. Gas Stations, and on U.S. Online Retail.</li>
+                    <li>🎬 <strong>$84 Disney Bundle Credit:</strong> Get $7 back each month on your Disney+ subscription.</li>
+                    <li>🍳 <strong>$180 Home Chef Credit:</strong> Up to $15 in monthly credits for the meal-kit service.</li>
+                    <li>🎉 <strong>No Annual Fee:</strong> Enjoy great rewards and benefits with a $0 annual fee.</li>
+                </ul>
+                <p class="fee">Annual Fee: $0</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Blue Cash Everyday</a>
+            </div>
+        </article>
+        
+        <!-- Bilt Rewards -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/1C1C1C/FFFFFF?text=Bilt+Rewards" alt="Bilt Rewards Credit Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>Bilt Rewards Credit Card</h2>
+                <p class="tagline"><strong>🏠 Perfect For:</strong> Renters! Pay rent and earn points with no fees.</p>
+                <ul>
+                    <li>💸 <strong>Pay Rent, No Fees:</strong> The only card letting you pay rent via check or portal with no transaction fee.</li>
+                    <li>✈️ <strong>Earn Valuable Points:</strong> 1X on rent, 3X on dining, and 2X on travel.</li>
+                    <li>🌟 <strong>Rent Day Perks:</strong> All non-rent points earnings are DOUBLED on the 1st of every month.</li>
+                    <li>💎 <strong>Elite Transfer Partners:</strong> Transfer 1:1 to partners like American Airlines, Hyatt, and United.</li>
+                </ul>
+                <p class="fee">Annual Fee: $0 (with 5 monthly transactions)</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Start Earning on Rent</a>
+            </div>
+        </article>
+
+        <!-- Chase Sapphire Preferred -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/003767/FFFFFF?text=Sapphire+Preferred" alt="Chase Sapphire Preferred Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>Chase Sapphire Preferred® Card</h2>
+                <p class="tagline"><strong>✨ Perfect For:</strong> The aspiring traveler who loves to dine out.</p>
+                <ul>
+                    <li>✈️ <strong>Massive Sign-Up Bonus:</strong> Earn 60,000 bonus points (worth $750 for travel) after meeting the minimum spend.</li>
+                    <li>🍔 <strong>Big Rewards:</strong> 3X points on dining, select streaming, & online groceries. 2X on travel.</li>
+                    <li>💎 <strong>Point Power:</strong> Points are worth 25% more for travel via Chase, or transfer 1:1 to partners like Hyatt & United.</li>
+                    <li>🏨 <strong>$50 Annual Hotel Credit:</strong> Statement credit for hotel stays purchased through Chase Travel℠.</li>
+                </ul>
+                <p class="fee">Annual Fee: $95</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Get Your Bonus</a>
+            </div>
+        </article>
+
+        <!-- Chase Freedom Unlimited -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/00529b/FFFFFF?text=Freedom+Unlimited" alt="Chase Freedom Unlimited Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>Chase Freedom Unlimited®</h2>
+                <p class="tagline"><strong>🛒 Perfect For:</strong> Effortless, powerful cash back on every single purchase.</p>
+                <ul>
+                    <li>💰 <strong>Unlimited Cash Back:</strong> Earn a minimum of <strong>1.5% cash back</strong> on every purchase—automatically.</li>
+                    <li>🚀 <strong>Boosted Categories:</strong> 5% on Chase travel, 3% on dining and drugstores.</li>
+                    <li>🎉 <strong>Incredible Intro Offer:</strong> Often includes a period of even higher cash back for the first year.</li>
+                    <li>🤝 <strong>Power Combo:</strong> Convert cash back to valuable travel points with a Sapphire card.</li>
+                </ul>
+                <p class="fee">Annual Fee: $0</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Start Earning</a>
+            </div>
+        </article>
+
+        <!-- Discover it -->
+        <article class="card-listing">
+            <div class="card-image">
+                <img src="https://placehold.co/400x252/FF6600/FFFFFF?text=Discover+it" alt="Discover it Cash Back Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+            </div>
+            <div class="card-details">
+                <h2>Discover it® Cash Back</h2>
+                <p class="tagline"><strong>🔄 Perfect For:</strong> The savvy shopper who loves maximizing rewards.</p>
+                <ul>
+                    <li>🔥 <strong>5% Rotating Rewards:</strong> Earn 5% back on quarterly rotating categories like Amazon, Gas Stations, and Restaurants.</li>
+                    <li>🤯 <strong>UNLIMITED Cashback Match:</strong> Discover automatically matches ALL cash back earned in your first year. No limit!</li>
+                    <li>💳 <strong>No Surprises:</strong> $0 Annual Fee, no foreign transaction fees, and first late payment fee waived.</li>
+                    <li>💖 <strong>U.S. Based Customer Service:</strong> Known for having fantastic, helpful support.</li>
+                </ul>
+                <p class="fee">Annual Fee: $0</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Get Your Bonus Matched!</a>
+            </div>
+        </article>
+        
+        <!-- SoFi Bonus -->
+        <section id="bonus-offer">
+            <div class="container">
+                <h2>🚀 Bonus: Level Up Your Banking</h2>
+                <p>Looking for a bank that actually rewards you? I moved my banking to SoFi and haven't looked back. They offer a high-yield savings account, no account fees, and a great sign-up bonus.</p>
+                <ul>
+                    <li>🤑 Earn a highly competitive APY on your savings.</li>
+                    <li>✅ No account fees, no overdraft fees.</li>
+                    <li>💰 Get a cash bonus when you sign up with my link and set up direct deposit!</li>
+                </ul>
+                <a href="https://[YOUR_SOFI_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Open a SoFi Account & Earn a Bonus</a>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p class="disclaimer">
+                <strong>Disclaimer:</strong> The content on this page is for informational purposes only. I am not a financial advisor. The opinions expressed here are my own and are not provided or commissioned by any bank, credit card issuer, or other company. The offers mentioned are subject to change without notice, and the terms and conditions of each credit card are available on the issuer's website. I may be compensated through the issuer's affiliate programs if you apply and are approved for a card through the links on this page.
+            </p>
+            <p class="copyright">&copy; 2025 The Points Passport. All Rights Reserved.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
