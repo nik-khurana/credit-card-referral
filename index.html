@@ -23,6 +23,7 @@
             --accent-color: #567aff;
             --border-radius: 16px;
             --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --nav-height: 70px;
         }
 
         /* --- Keyframe Animations --- */
@@ -42,6 +43,11 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
+        }
+        
+        html {
+            scroll-behavior: smooth;
+            scroll-padding-top: var(--nav-height);
         }
 
         body {
@@ -68,10 +74,59 @@
             margin: 0 auto;
             padding: 0 20px;
         }
+        
+        /* --- Navigation Bar --- */
+        .navbar {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: var(--nav-height);
+            z-index: 1000;
+            background: rgba(18, 18, 18, 0.8);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--card-border);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--text-primary);
+        }
+        
+        .hamburger {
+            display: none;
+            cursor: pointer;
+        }
+
+        .hamburger div {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-primary);
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+
 
         /* --- Header & Hero Section --- */
         .hero {
-            padding: 120px 20px 60px;
+            padding: 80px 20px 60px;
             text-align: center;
             animation: fadeIn 1s ease-out forwards;
         }
@@ -117,12 +172,12 @@
         }
         
         /* Staggered animation for cards */
-        .card-listing:nth-child(1) { animation-delay: 0.2s; }
-        .card-listing:nth-child(2) { animation-delay: 0.3s; }
-        .card-listing:nth-child(3) { animation-delay: 0.4s; }
-        .card-listing:nth-child(4) { animation-delay: 0.5s; }
-        .card-listing:nth-child(5) { animation-delay: 0.6s; }
-        .card-listing:nth-child(6) { animation-delay: 0.7s; }
+        main > .card-listing:nth-of-type(1) { animation-delay: 0.2s; }
+        main > .card-listing:nth-of-type(2) { animation-delay: 0.3s; }
+        main > .card-listing:nth-of-type(3) { animation-delay: 0.4s; }
+        main > .card-listing:nth-of-type(4) { animation-delay: 0.5s; }
+        main > .card-listing:nth-of-type(5) { animation-delay: 0.6s; }
+        main > .card-listing:nth-of-type(6) { animation-delay: 0.7s; }
 
 
         .card-listing:hover {
@@ -134,13 +189,16 @@
             flex-shrink: 0;
             text-align: center;
             position: relative;
+            width: 250px; /* Set a fixed width */
         }
 
         .card-image img {
-            max-width: 250px;
+            width: 100%; /* Make image fill the container */
+            height: auto;
             border-radius: 10px;
             box-shadow: 0 6px 15px rgba(0,0,0,0.2);
             transition: transform 0.4s ease;
+            background-color: rgba(255,255,255,0.1); /* Add a light background for transparent PNGs */
         }
 
         .card-listing:hover .card-image img {
@@ -257,7 +315,41 @@
         }
 
         /* --- Responsive Design for Mobile --- */
-        @media (max-width: 768px) {
+        @media (max-width: 820px) {
+            .nav-links {
+                position: absolute;
+                right: 0;
+                top: var(--nav-height);
+                background: rgba(18, 18, 18, 0.95);
+                backdrop-filter: blur(10px);
+                width: 100%;
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transform: translateY(-120%);
+                transition: transform 0.5s ease-in-out;
+            }
+            
+            .nav-links.nav-active {
+                transform: translateY(0%);
+            }
+
+            .hamburger {
+                display: block;
+                position: absolute;
+                right: 20px;
+            }
+            
+            .toggle .line1 {
+                transform: rotate(-45deg) translate(-5px, 6px);
+            }
+            .toggle .line2 {
+                opacity: 0;
+            }
+            .toggle .line3 {
+                transform: rotate(45deg) translate(-5px, -6px);
+            }
+
             .hero h1 {
                 font-size: 2.8rem;
             }
@@ -270,9 +362,13 @@
                 padding: 25px;
             }
 
+            .card-image {
+                width: 100%;
+            }
+
             .card-image img {
-                max-width: 100%;
-                width: 300px;
+                max-width: 300px;
+                width: 100%;
             }
             
             .card-details {
@@ -288,6 +384,25 @@
 </head>
 <body>
     <div class="background-glow"></div>
+    
+    <nav class="navbar">
+        <div class="nav-container container">
+             <ul class="nav-links">
+                <li><a href="#amex-gold">Amex Gold</a></li>
+                <li><a href="#amex-bce">Amex BCE</a></li>
+                <li><a href="#bilt">Bilt</a></li>
+                <li><a href="#chase-sapphire">Chase Sapphire</a></li>
+                <li><a href="#chase-freedom">Chase Freedom</a></li>
+                <li><a href="#discover">Discover</a></li>
+            </ul>
+            <div class="hamburger">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </div>
+    </nav>
+
     <header class="hero">
         <div class="container">
             <h1>Unlock Maximum Rewards.</h1>
@@ -298,33 +413,31 @@
 
     <main class="container">
         <!-- Amex Gold -->
-        <article class="card-listing">
+        <article class="card-listing" id="amex-gold">
             <div class="card-image">
-                <img src="Gold.jpg" alt="American Express Gold Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://www.americanexpress.com/content/dam/amex/us/credit-cards/card-art/gold-card-480x304.png" alt="American Express Gold Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/D4AF37/000000?text=Amex+Gold';">
             </div>
             <div class="card-details">
                 <h2>American Express® Gold Card</h2>
                 <p class="tagline"><strong>🍔 Perfect For:</strong> The ultimate foodie and frequent diner.</p>
                 <ul>
-                    <li>⭐ <strong>AS HIGH AS 100,000 Membership Rewards® points </strong> after you spend $6,000 in purchases on your new Card within the first 6 months of Card Membership </li>
                     <li>🏆 <strong>Unbeatable Rewards:</strong> 4X points at Restaurants worldwide & at U.S. Supermarkets.</li>
                     <li>🚕 <strong>$120 Uber Cash:</strong> Get up to $10 in Uber Cash for rides or Eats each month.</li>
                     <li>🍽️ <strong>$120 Dining Credit:</strong> Get up to $10 in statement credits each month for Grubhub, Shake Shack & more.</li>
-                    <li>☕ <strong>$84 Dunkin Credit: </strong> Get up to $7 in monthly statement credits after you pay with the American Express® Gold Card at U.S. Dunkin' locations.</li>
                     <li>✈️ <strong>Flexible Points:</strong> Transfer points to a huge list of premium airline and hotel partners.</li>
                 </ul>
-                <p class="fee">Annual Fee: $325</p>
-                <a href="https://americanexpress.com/en-us/referral/gold-card?ref=NIKHIKVTuv&XL=MIMNS" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Amex Gold</a>
+                <p class="fee">Annual Fee: $250</p>
+                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Amex Gold</a>
             </div>
         </article>
         
         <!-- Amex Blue Cash Everyday -->
-        <article class="card-listing">
+        <article class="card-listing" id="amex-bce">
             <div class="card-image">
-                <img src="https://placehold.co/400x252/6caddf/FFFFFF?text=Blue+Cash+Everyday" alt="American Express Blue Cash Everyday Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://www.americanexpress.com/content/dam/amex/us/credit-cards/card-art/blue-cash-everyday-card-480x304.png" alt="American Express Blue Cash Everyday Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/6caddf/FFFFFF?text=Blue+Cash';">
             </div>
             <div class="card-details">
-                <h2>Blue Cash Everyday® Card from American Express</h2>
+                <h2>Blue Cash Everyday® Card</h2>
                 <p class="tagline"><strong>🛒 Perfect For:</strong> The modern household's daily expenses.</p>
                 <ul>
                     <li>💰 <strong>Strong Cash Back:</strong> 3% back at U.S. Supermarkets, U.S. Gas Stations, and on U.S. Online Retail.</li>
@@ -338,9 +451,9 @@
         </article>
         
         <!-- Bilt Rewards -->
-        <article class="card-listing">
+        <article class="card-listing" id="bilt">
             <div class="card-image">
-                <img src="https://placehold.co/400x252/1C1C1C/FFFFFF?text=Bilt+Rewards" alt="Bilt Rewards Credit Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://www.biltrewards.com/images/card/card-1x.png" alt="Bilt Rewards Credit Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/1C1C1C/FFFFFF?text=Bilt+Rewards';">
             </div>
             <div class="card-details">
                 <h2>Bilt Rewards Credit Card</h2>
@@ -357,9 +470,9 @@
         </article>
 
         <!-- Chase Sapphire Preferred -->
-        <article class="card-listing">
+        <article class="card-listing" id="chase-sapphire">
             <div class="card-image">
-                <img src="https://placehold.co/400x252/003767/FFFFFF?text=Sapphire+Preferred" alt="Chase Sapphire Preferred Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://creditcards.chase.com/K-Marketplace/images/cardart/sapphire_preferred_card.png" alt="Chase Sapphire Preferred Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/003767/FFFFFF?text=Sapphire';">
             </div>
             <div class="card-details">
                 <h2>Chase Sapphire Preferred® Card</h2>
@@ -376,9 +489,9 @@
         </article>
 
         <!-- Chase Freedom Unlimited -->
-        <article class="card-listing">
+        <article class="card-listing" id="chase-freedom">
             <div class="card-image">
-                <img src="https://placehold.co/400x252/00529b/FFFFFF?text=Freedom+Unlimited" alt="Chase Freedom Unlimited Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://creditcards.chase.com/K-Marketplace/images/cardart/freedom_unlimited_card.png" alt="Chase Freedom Unlimited Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/00529b/FFFFFF?text=Freedom';">
             </div>
             <div class="card-details">
                 <h2>Chase Freedom Unlimited®</h2>
@@ -395,9 +508,9 @@
         </article>
 
         <!-- Discover it -->
-        <article class="card-listing">
+        <article class="card-listing" id="discover">
             <div class="card-image">
-                <img src="https://placehold.co/400x252/FF6600/FFFFFF?text=Discover+it" alt="Discover it Cash Back Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/ccc/FFFFFF?text=Image+Not+Found';">
+                <img src="https://www.discover.com/credit-cards/cash-back/it-card/images/cashback-card-img-v2.png" alt="Discover it Cash Back Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/FF6600/FFFFFF?text=Discover+it';">
             </div>
             <div class="card-details">
                 <h2>Discover it® Cash Back</h2>
@@ -437,6 +550,27 @@
             <p class="copyright">&copy; 2025 The Points Passport. All Rights Reserved.</p>
         </div>
     </footer>
+    
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const navLinks = document.querySelector('.nav-links');
+
+        hamburger.addEventListener('click', () => {
+            // Toggle Nav
+            navLinks.classList.toggle('nav-active');
+
+            // Animate Hamburger
+            hamburger.classList.toggle('toggle');
+        });
+        
+        // Close menu when a link is clicked
+        navLinks.addEventListener('click', () => {
+             if (navLinks.classList.contains('nav-active')) {
+                 navLinks.classList.remove('nav-active');
+                 hamburger.classList.remove('toggle');
+             }
+        });
+    </script>
 
 </body>
 </html>
