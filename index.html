@@ -8,34 +8,27 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        /* --- Enhanced Design & Animations --- */
+        /* --- New Bright & Vibrant UI --- */
 
         /* --- CSS Variables for Theming --- */
         :root {
-            --bg-color: #121212;
-            --primary-glow: rgba(86, 122, 255, 0.55);
-            --secondary-glow: rgba(200, 80, 255, 0.5);
-            --card-bg: rgba(255, 255, 255, 0.07);
-            --card-border: rgba(255, 255, 255, 0.15);
-            --card-hover-border: rgba(255, 255, 255, 0.4);
-            --text-primary: #f0f0f0;
-            --text-secondary: #a0a0a0;
-            --accent-color: #567aff;
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #212529;
+            --text-secondary: #495057;
+            /* Updated Gradient */
+            --accent-gradient: linear-gradient(45deg, #9b59b6 0%, #8e44ad 100%);
+            --accent-color-start: #9b59b6;
+            --border-color: #e9ecef;
             --border-radius: 16px;
-            --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+            --shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
             --nav-height: 70px;
         }
 
         /* --- Keyframe Animations --- */
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+            from { opacity: 0; transform: translateY(15px); }
             to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes backgroundPan {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
         }
 
         /* --- General Body & Layout Styles --- */
@@ -53,20 +46,9 @@
         body {
             font-family: 'Inter', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-primary);
+            color: var(--text-secondary);
             line-height: 1.7;
-            overflow-x: hidden; /* Prevent horizontal scroll */
-        }
-
-        .background-glow {
-            position: fixed;
-            top: -20%;
-            left: -20%;
-            width: 140%;
-            height: 140%;
-            background: radial-gradient(circle, var(--primary-glow) 0%, var(--secondary-glow) 50%, transparent 70%);
-            animation: backgroundPan 25s ease-in-out infinite;
-            z-index: -1;
+            overflow-x: hidden;
         }
 
         .container {
@@ -83,10 +65,10 @@
             width: 100%;
             height: var(--nav-height);
             z-index: 1000;
-            background: rgba(18, 18, 18, 0.8);
+            background: rgba(255, 255, 255, 0.85);
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--card-border);
+            border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -104,10 +86,27 @@
             font-weight: 600;
             font-size: 0.9rem;
             transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 5px;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--accent-color-start);
+            transition: width 0.3s ease;
         }
 
         .nav-links a:hover {
             color: var(--text-primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
         }
         
         .hamburger {
@@ -126,52 +125,55 @@
 
         /* --- Header & Hero Section --- */
         .hero {
-            padding: 80px 20px 60px;
+            padding: 80px 20px 80px;
             text-align: center;
             animation: fadeIn 1s ease-out forwards;
+            background: var(--accent-gradient);
+            color: white;
         }
 
         .hero h1 {
             font-size: 3.5rem;
             font-weight: 700;
             margin-bottom: 1rem;
-            background: -webkit-linear-gradient(45deg, #ffffff, #c0c0c0);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }
 
         .hero h3 {
             font-size: 1.5rem;
             font-weight: 400;
-            color: var(--text-secondary);
+            color: white;
+            opacity: 0.9;
             margin-bottom: 1.5rem;
         }
 
         .hero .intro {
             max-width: 700px;
             margin: 0 auto;
-            color: var(--text-secondary);
+            color: white;
+            opacity: 0.95;
             font-size: 1.1rem;
         }
 
-        /* --- Card Listing Styles (Glassmorphism) --- */
+        /* --- Card Listing Styles --- */
+        main {
+            padding-top: 20px;
+        }
+        
         .card-listing {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
+            background-color: var(--card-bg);
             border-radius: var(--border-radius);
-            border: 1px solid var(--card-border);
             box-shadow: var(--shadow);
             margin: 40px 0;
             padding: 30px;
             display: flex;
             gap: 30px;
-            transition: transform 0.4s ease, border 0.4s ease;
-            opacity: 0; /* Initially hidden for animation */
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            opacity: 0;
             animation: fadeIn 0.8s ease-out forwards;
+            border: 1px solid var(--border-color);
         }
         
-        /* Staggered animation for cards */
         main > .card-listing:nth-of-type(1) { animation-delay: 0.2s; }
         main > .card-listing:nth-of-type(2) { animation-delay: 0.3s; }
         main > .card-listing:nth-of-type(3) { animation-delay: 0.4s; }
@@ -181,24 +183,22 @@
 
 
         .card-listing:hover {
-            transform: translateY(-8px) scale(1.02);
-            border: 1px solid var(--card-hover-border);
+            transform: translateY(-8px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
         }
 
         .card-image {
             flex-shrink: 0;
             text-align: center;
             position: relative;
-            width: 250px; /* Set a fixed width */
+            width: 250px;
         }
 
         .card-image img {
-            width: 100%; /* Make image fill the container */
+            width: 100%;
             height: auto;
             border-radius: 10px;
-            box-shadow: 0 6px 15px rgba(0,0,0,0.2);
             transition: transform 0.4s ease;
-            background-color: rgba(255,255,255,0.1); /* Add a light background for transparent PNGs */
         }
 
         .card-listing:hover .card-image img {
@@ -229,7 +229,6 @@
             margin-bottom: 0.75rem;
             padding-left: 5px;
             font-size: 0.95rem;
-            color: var(--text-secondary);
         }
         
         .card-details ul li strong {
@@ -245,28 +244,27 @@
         /* --- Call to Action Button --- */
         .cta-button {
             display: inline-block;
-            background: var(--accent-color);
+            background: var(--accent-gradient);
             color: white;
             padding: 14px 28px;
             text-decoration: none;
             font-weight: 600;
             border-radius: 10px;
             margin-top: 1rem;
-            transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 4px 15px rgba(86, 122, 255, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 4px 20px rgba(155, 89, 182, 0.4);
+            border: none;
         }
 
         .cta-button:hover {
-            background-color: #7395ff;
-            transform: translateY(-3px);
-            box-shadow: 0 7px 20px rgba(86, 122, 255, 0.4);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 7px 25px rgba(142, 68, 173, 0.4);
         }
 
         /* --- Bonus SoFi Section --- */
         #bonus-offer {
             background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
+            border: 1px solid var(--border-color);
             border-radius: var(--border-radius);
             padding: 40px;
             margin: 60px 0;
@@ -280,17 +278,12 @@
             margin-bottom: 1rem;
         }
         
-        #bonus-offer p {
-            color: var(--text-secondary);
-        }
-
         #bonus-offer ul {
             list-style-type: none;
             margin: 1.5rem 0;
             padding: 0;
             display: inline-block;
             text-align: left;
-            color: var(--text-secondary);
         }
 
         /* --- Footer --- */
@@ -300,6 +293,7 @@
             margin-top: 30px;
             opacity: 0;
             animation: fadeIn 0.8s ease-out 1s forwards;
+            border-top: 1px solid var(--border-color);
         }
 
         footer .disclaimer {
@@ -320,14 +314,14 @@
                 position: absolute;
                 right: 0;
                 top: var(--nav-height);
-                background: rgba(18, 18, 18, 0.95);
-                backdrop-filter: blur(10px);
+                background: white;
                 width: 100%;
                 flex-direction: column;
                 align-items: center;
                 padding: 2rem 0;
                 transform: translateY(-120%);
                 transition: transform 0.5s ease-in-out;
+                box-shadow: 0 10px 20px rgba(0,0,0,0.05);
             }
             
             .nav-links.nav-active {
@@ -383,7 +377,6 @@
     </style>
 </head>
 <body>
-    <div class="background-glow"></div>
     
     <nav class="navbar">
         <div class="nav-container container">
@@ -421,20 +414,22 @@
                 <h2>American Express® Gold Card</h2>
                 <p class="tagline"><strong>🍔 Perfect For:</strong> The ultimate foodie and frequent diner.</p>
                 <ul>
+                    <li>⭐ <strong>AS HIGH AS 100,000 Membership Rewards® points </strong> after you spend $6,000 in purchases on your new Card within the first 6 months of Card Membership </li>
                     <li>🏆 <strong>Unbeatable Rewards:</strong> 4X points at Restaurants worldwide & at U.S. Supermarkets.</li>
                     <li>🚕 <strong>$120 Uber Cash:</strong> Get up to $10 in Uber Cash for rides or Eats each month.</li>
                     <li>🍽️ <strong>$120 Dining Credit:</strong> Get up to $10 in statement credits each month for Grubhub, Shake Shack & more.</li>
+                    <li>☕ <strong>$84 Dunkin Credit: </strong> Get up to $7 in monthly statement credits after you pay with the American Express® Gold Card at U.S. Dunkin' locations.</li>
                     <li>✈️ <strong>Flexible Points:</strong> Transfer points to a huge list of premium airline and hotel partners.</li>
                 </ul>
-                <p class="fee">Annual Fee: $250</p>
-                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Amex Gold</a>
+                <p class="fee">Annual Fee: $325</p>
+                <a href="https://americanexpress.com/en-us/referral/gold-card?ref=NIKHIKVTuv&XL=MIMNS" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Amex Gold</a>
             </div>
         </article>
         
         <!-- Amex Blue Cash Everyday -->
         <article class="card-listing" id="amex-bce">
             <div class="card-image">
-                <img src="https://www.americanexpress.com/content/dam/amex/us/credit-cards/card-art/blue-cash-everyday-card-480x304.png" alt="American Express Blue Cash Everyday Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/6caddf/FFFFFF?text=Blue+Cash';">
+                <img src="BCE.jpg" alt="American Express Blue Cash Everyday Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/6caddf/FFFFFF?text=Blue+Cash';">
             </div>
             <div class="card-details">
                 <h2>Blue Cash Everyday® Card</h2>
@@ -446,14 +441,14 @@
                     <li>🎉 <strong>No Annual Fee:</strong> Enjoy great rewards and benefits with a $0 annual fee.</li>
                 </ul>
                 <p class="fee">Annual Fee: $0</p>
-                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Blue Cash Everyday</a>
+                <a href="https://americanexpress.com/en-us/referral/blue-cash-everyday-credit-card?ref=NIKHIK8a7m&XL=MIMNS" class="cta-button" target="_blank" rel="noopener noreferrer">Apply for the Blue Cash Everyday</a>
             </div>
         </article>
         
         <!-- Bilt Rewards -->
         <article class="card-listing" id="bilt">
             <div class="card-image">
-                <img src="https://www.biltrewards.com/images/card/card-1x.png" alt="Bilt Rewards Credit Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/1C1C1C/FFFFFF?text=Bilt+Rewards';">
+                <img src="bilt.mp4" alt="Bilt Rewards Credit Card" onerror="this.onerror=null;this.src='https://placehold.co/400x252/1C1C1C/FFFFFF?text=Bilt+Rewards';">
             </div>
             <div class="card-details">
                 <h2>Bilt Rewards Credit Card</h2>
@@ -464,8 +459,8 @@
                     <li>🌟 <strong>Rent Day Perks:</strong> All non-rent points earnings are DOUBLED on the 1st of every month.</li>
                     <li>💎 <strong>Elite Transfer Partners:</strong> Transfer 1:1 to partners like American Airlines, Hyatt, and United.</li>
                 </ul>
-                <p class="fee">Annual Fee: $0 (with 5 monthly transactions)</p>
-                <a href="https://[YOUR_REFERRAL_LINK_HERE]" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Start Earning on Rent</a>
+                <p class="fee">Annual Fee: $0</p>
+                <a href="https://bilt.page/r/ANON-BNUR" class="cta-button" target="_blank" rel="noopener noreferrer">Apply & Start Earning on Rent</a>
             </div>
         </article>
 
